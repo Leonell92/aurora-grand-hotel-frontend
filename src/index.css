@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm luxury palette */
+    --background: 40 33% 98%;
+    --foreground: 220 20% 15%;
+
+    --card: 40 30% 97%;
+    --card-foreground: 220 20% 15%;
+
+    --popover: 40 30% 97%;
+    --popover-foreground: 220 20% 15%;
+
+    /* Gold primary */
+    --primary: 38 65% 50%;
+    --primary-foreground: 40 33% 98%;
+
+    /* Warm gray secondary */
+    --secondary: 35 15% 90%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 35 15% 92%;
+    --muted-foreground: 220 10% 45%;
+
+    /* Champagne accent */
+    --accent: 38 45% 60%;
+    --accent-foreground: 220 20% 15%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 38 65% 50%;
+
+    --radius: 0.5rem;
+
+    /* Custom luxury tokens */
+    --gold: 38 65% 50%;
+    --gold-light: 38 55% 65%;
+    --gold-dark: 38 70% 40%;
+    --ivory: 40 33% 98%;
+    --ivory-dark: 40 25% 93%;
+    --charcoal: 220 20% 15%;
+    --charcoal-light: 220 15% 30%;
+    --warm-gray: 35 10% 60%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(38 65% 50%), hsl(38 55% 60%));
+    --gradient-hero: linear-gradient(180deg, hsla(220, 20%, 15%, 0.7) 0%, hsla(220, 20%, 15%, 0.3) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(40 30% 97%) 0%, hsl(40 25% 94%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsla(220, 20%, 15%, 0.08);
+    --shadow-medium: 0 8px 30px -8px hsla(220, 20%, 15%, 0.12);
+    --shadow-gold: 0 4px 20px -4px hsla(38, 65%, 50%, 0.3);
+
+    /* Sidebar tokens */
+    --sidebar-background: 40 25% 96%;
+    --sidebar-foreground: 220 20% 15%;
+    --sidebar-primary: 38 65% 50%;
+    --sidebar-primary-foreground: 40 33% 98%;
+    --sidebar-accent: 35 15% 92%;
+    --sidebar-accent-foreground: 220 20% 15%;
+    --sidebar-border: 35 20% 88%;
+    --sidebar-ring: 38 65% 50%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 40 20% 95%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 38 65% 55%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 40 20% 95%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 40 15% 60%;
+
+    --accent: 38 50% 45%;
+    --accent-foreground: 40 20% 95%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 20% 95%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 38 65% 55%;
+
+    --gold: 38 65% 55%;
+    --gold-light: 38 55% 65%;
+    --gold-dark: 38 70% 45%;
+    --ivory: 220 20% 10%;
+    --ivory-dark: 220 18% 13%;
+    --charcoal: 40 20% 95%;
+    --charcoal-light: 40 15% 75%;
+    --warm-gray: 35 10% 50%;
+
+    --sidebar-background: 220 18% 12%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 38 65% 55%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 38 65% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .luxury-shadow {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .luxury-shadow-hover {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .gold-glow {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out forwards;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1;
+    box-shadow: var(--shadow-medium);
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* ... your existing styles in index.css ... */
+
+/* Alert for redirect messages (e.g., "Please sign in to make a booking") */
+.alert-warning {
+  padding: 1rem;
+  background-color: #fef9e7; /* softer gold/yellow */
+  border: 1px solid #d4af37; /* gold border */
+  border-radius: 8px; /* more modern */
+  color: #333; /* dark text */
+  font-weight: 500;
+}
