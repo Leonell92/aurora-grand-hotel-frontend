@@ -4,7 +4,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Users, ArrowRight, Loader2 } from "lucide-react";
 import { getRooms, getErrorMessage } from "@/api/api";
-import { formatPrice } from "@/lib/utils/priceUtils";
 
 const RoomsPage = () => {
   const [rooms, setRooms] = useState<any[]>([]);
@@ -20,7 +19,6 @@ const RoomsPage = () => {
     setError("");
 
     try {
-      // Fetch rooms using Axios
       const data = await getRooms();
       setRooms(data);
     } catch (err: any) {
@@ -29,6 +27,14 @@ const RoomsPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatPrice = (price: string | number) => {
+    const numPrice = typeof price === "string" ? parseFloat(price) : price;
+    return isNaN(numPrice) ? "0.00" : numPrice.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
 
   if (loading) {
@@ -47,7 +53,6 @@ const RoomsPage = () => {
   return (
     <Layout>
       <div className="pt-20">
-        {/* Hero Section */}
         <section className="relative h-[40vh] bg-charcoal">
           <img
             src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
@@ -64,7 +69,6 @@ const RoomsPage = () => {
           </div>
         </section>
 
-        {/* Error Message */}
         {error && (
           <section className="py-8 bg-red-50">
             <div className="container mx-auto px-4 lg:px-8">
@@ -78,7 +82,6 @@ const RoomsPage = () => {
           </section>
         )}
 
-        {/* Rooms Grid */}
         <section className="py-16">
           <div className="container mx-auto px-4 lg:px-8">
             {rooms.length === 0 ? (
@@ -95,7 +98,6 @@ const RoomsPage = () => {
                     key={room.id}
                     className="group bg-card rounded-xl overflow-hidden luxury-shadow hover:shadow-xl transition-all duration-300"
                   >
-                    {/* Room Image */}
                     <div className="relative h-64 bg-charcoal overflow-hidden">
                       <img
                         src={
@@ -114,7 +116,6 @@ const RoomsPage = () => {
                       )}
                     </div>
 
-                    {/* Room Details */}
                     <div className="p-6">
                       <div className="mb-4">
                         <p className="text-primary uppercase tracking-widest text-xs mb-2">
@@ -128,7 +129,6 @@ const RoomsPage = () => {
                         </p>
                       </div>
 
-                      {/* Room Features */}
                       <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Users className="h-4 w-4" />
@@ -136,7 +136,6 @@ const RoomsPage = () => {
                         </div>
                       </div>
 
-                      {/* Amenities Preview */}
                       {room.amenities && room.amenities.length > 0 && (
                         <div className="mb-4">
                           <div className="flex flex-wrap gap-2">
@@ -157,7 +156,6 @@ const RoomsPage = () => {
                         </div>
                       )}
 
-                      {/* Price and CTA */}
                       <div className="flex items-center justify-between pt-4 border-t">
                         <div>
                           <p className="text-2xl font-serif text-primary">
@@ -184,7 +182,6 @@ const RoomsPage = () => {
           </div>
         </section>
 
-        {/* Call to Action */}
         <section className="py-16 bg-ivory-dark">
           <div className="container mx-auto px-4 lg:px-8 text-center">
             <h2 className="font-serif text-3xl mb-4">Need Help Choosing?</h2>

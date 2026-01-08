@@ -9,7 +9,6 @@ import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getRoomById, checkAvailability, createBooking, getErrorMessage } from "@/api/api";
-import { formatPrice } from "@/lib/utils/priceUtils";
 
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
@@ -22,18 +21,15 @@ const RoomDetailsPage = () => {
   const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [user, setUser] = useState<any>(null);
   
-  // Guest form data
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
 
   useEffect(() => {
-    // Get logged-in user data
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setUser(userData);
-      // Pre-fill form with user data
       setGuestName(`${userData.first_name} ${userData.last_name}`);
       setGuestEmail(userData.email);
     }
@@ -42,7 +38,6 @@ const RoomDetailsPage = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        // Use Axios API function
         const data = await getRoomById(roomId!);
         setRoom(data);
       } catch (error) {
@@ -55,7 +50,6 @@ const RoomDetailsPage = () => {
     fetchRoom();
   }, [roomId]);
 
-  // Check if form is valid
   const isFormValid = () => {
     if (!checkIn || !checkOut) return false;
     if (!guestName.trim() || !guestEmail.trim()) return false;
@@ -69,7 +63,6 @@ const RoomDetailsPage = () => {
   };
 
   const handleReserve = async () => {
-    // Check if user is logged in
     if (!user) {
       alert("Please sign in to make a booking.");
       navigate("/login");
@@ -86,7 +79,6 @@ const RoomDetailsPage = () => {
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(guestEmail)) {
       alert("Please enter a valid email address.");
@@ -100,12 +92,10 @@ const RoomDetailsPage = () => {
 
     setBookingLoading(true);
 
-    // Convert dates to YYYY-MM-DD strings
     const checkInStr = checkIn.toISOString().split("T")[0];
     const checkOutStr = checkOut.toISOString().split("T")[0];
 
     try {
-      // Check availability first using Axios
       const availabilityData = await checkAvailability(
         room.id,
         checkInStr,
@@ -117,7 +107,6 @@ const RoomDetailsPage = () => {
         return;
       }
 
-      // If available, proceed to book using Axios
       const bookingData = {
         room: room.id,
         check_in: checkInStr,
@@ -134,7 +123,6 @@ const RoomDetailsPage = () => {
     } catch (error: any) {
       console.error("Booking failed:", error);
       
-      // Handle authentication errors
       if (error.response?.status === 401) {
         alert("Please log in to make a booking.");
         navigate("/login");
@@ -144,6 +132,14 @@ const RoomDetailsPage = () => {
     } finally {
       setBookingLoading(false);
     }
+  };
+
+  const formatPrice = (price: string | number) => {
+    const numPrice = typeof price === "string" ? parseFloat(price) : price;
+    return isNaN(numPrice) ? "0.00" : numPrice.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
 
   if (loading) {
@@ -174,7 +170,6 @@ const RoomDetailsPage = () => {
   return (
     <Layout>
       <div className="pt-20">
-        {/* Back Button */}
         <div className="container mx-auto px-4 lg:px-8 py-6">
           <Link
             to="/rooms"
@@ -185,7 +180,6 @@ const RoomDetailsPage = () => {
           </Link>
         </div>
 
-        {/* Image */}
         <section className="relative h-[50vh] bg-charcoal">
           <img
             src={
@@ -197,10 +191,8 @@ const RoomDetailsPage = () => {
           />
         </section>
 
-        {/* Content */}
         <section className="py-16">
           <div className="container mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Details */}
             <div className="lg:col-span-2 space-y-8">
               <div>
                 <p className="text-primary uppercase tracking-widest text-sm">
@@ -232,7 +224,6 @@ const RoomDetailsPage = () => {
               )}
             </div>
 
-            {/* Booking Card */}
             <div className="sticky top-28 bg-card p-6 rounded-xl border">
               <div className="text-center mb-6 pb-6 border-b">
                 <p className="text-4xl font-serif text-primary">
@@ -241,7 +232,6 @@ const RoomDetailsPage = () => {
                 </p>
               </div>
 
-              {/* Guest Information Form */}
               <div className="space-y-4 mb-6">
                 <div>
                   <Label htmlFor="guestName" className="text-sm font-medium mb-2 block">
@@ -289,7 +279,6 @@ const RoomDetailsPage = () => {
                 </div>
               </div>
 
-              {/* Date Selection */}
               <div className="space-y-4 mb-6">
                 <div>
                   <Label className="text-sm font-medium mb-2 block">Check-in</Label>

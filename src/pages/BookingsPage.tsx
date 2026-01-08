@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, Users, MapPin, Clock, Loader2, AlertCircle } from "lucide-react";
+import { Calendar, User, Users, Clock, Loader2, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { getBookings, getRoomById, getErrorMessage } from "@/api/api";
 
@@ -13,7 +13,6 @@ const BookingsPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Check if user is logged in
     const user = localStorage.getItem("user");
     if (!user) {
       navigate("/login", {
@@ -30,10 +29,8 @@ const BookingsPage = () => {
     setError("");
 
     try {
-      // Fetch bookings using Axios
       const bookingsData = await getBookings();
 
-      // Fetch room details for each booking
       const bookingsWithRooms = await Promise.all(
         bookingsData.map(async (booking: any) => {
           try {
@@ -45,7 +42,6 @@ const BookingsPage = () => {
             };
           } catch (error) {
             console.error(`Error fetching room ${booking.room}:`, error);
-            // Room doesn't exist or error occurred
             return {
               ...booking,
               roomDetails: null,
@@ -59,7 +55,6 @@ const BookingsPage = () => {
     } catch (err: any) {
       console.error("Error fetching bookings:", err);
       
-      // Handle authentication errors
       if (err.response?.status === 401) {
         localStorage.removeItem("user");
         navigate("/login", {
@@ -132,7 +127,6 @@ const BookingsPage = () => {
                     key={booking.id}
                     className="bg-card rounded-xl overflow-hidden border luxury-shadow hover:shadow-lg transition-shadow"
                   >
-                    {/* Room Image */}
                     {booking.roomDetails?.image_url ? (
                       <div className="relative h-48 bg-charcoal">
                         <img
@@ -147,9 +141,7 @@ const BookingsPage = () => {
                       </div>
                     )}
 
-                    {/* Booking Details */}
                     <div className="p-6 space-y-4">
-                      {/* Room Name */}
                       <div>
                         {booking.roomDetails ? (
                           <>
@@ -173,7 +165,6 @@ const BookingsPage = () => {
                         )}
                       </div>
 
-                      {/* Dates */}
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm">
                           <Calendar className="h-4 w-4 text-primary" />
@@ -191,7 +182,6 @@ const BookingsPage = () => {
                         </div>
                       </div>
 
-                      {/* Guest Info */}
                       <div className="space-y-2 pt-4 border-t">
                         <div className="flex items-center gap-2 text-sm">
                           <User className="h-4 w-4 text-muted-foreground" />
@@ -206,7 +196,6 @@ const BookingsPage = () => {
                         </div>
                       </div>
 
-                      {/* Status */}
                       <div className="pt-4 border-t">
                         <div className="flex items-center justify-between">
                           <span
@@ -229,7 +218,6 @@ const BookingsPage = () => {
                         </div>
                       </div>
 
-                      {/* Booking Date */}
                       <p className="text-xs text-muted-foreground pt-2">
                         Booked on{" "}
                         {format(new Date(booking.created_at), "MMM dd, yyyy")}

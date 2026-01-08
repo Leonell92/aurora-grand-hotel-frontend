@@ -24,7 +24,7 @@ const SignupPage = () => {
       ...formData,
       [e.target.id]: e.target.value,
     });
-    setError(""); // Clear error when user types
+    setError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,14 +32,12 @@ const SignupPage = () => {
     setError("");
     setLoading(true);
 
-    // Validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
       setError("All fields are required");
       setLoading(false);
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError("Please enter a valid email address");
@@ -47,14 +45,12 @@ const SignupPage = () => {
       return;
     }
 
-    // Password validation
     if (formData.password.length < 8) {
       setError("Password must be at least 8 characters long");
       setLoading(false);
       return;
     }
 
-    // Confirm password
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       setLoading(false);
@@ -62,7 +58,6 @@ const SignupPage = () => {
     }
 
     try {
-      // Use Axios API function
       await registerUser({
         first_name: formData.firstName,
         last_name: formData.lastName,
@@ -70,7 +65,6 @@ const SignupPage = () => {
         password: formData.password,
       });
 
-      // Success - redirect to login
       alert("Registration successful! Please log in.");
       navigate("/login");
     } catch (err: any) {
