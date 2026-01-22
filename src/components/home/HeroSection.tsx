@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookingWidget } from "./BookingWidget";
+import { AmenitiesSlideshow } from "./AmenitiesSlideshow";
 import heroImage from "@/assets/hero-lobby.jpg";
 
 export function HeroSection() {
@@ -27,8 +28,8 @@ export function HeroSection() {
             Where Luxury Meets Tranquility
           </p>
           <p className="text-primary-foreground/70 max-w-2xl mx-auto mb-10 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            Experience unparalleled elegance in the heart of the city. Our award-winning 
-            hotel offers a sanctuary of refined comfort, exceptional service, and 
+            Experience unparalleled elegance in the heart of the city. Our award-winning
+            hotel offers a sanctuary of refined comfort, exceptional service, and
             unforgettable moments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style={{ animationDelay: "0.4s" }}>
@@ -44,6 +45,9 @@ export function HeroSection() {
             </Link>
           </div>
         </div>
+
+        {/* Amenities Slideshow */}
+        <AmenitiesSlideshow />
 
         {/* Booking Widget */}
         <div className="max-w-5xl mx-auto animate-fade-up" style={{ animationDelay: "0.5s" }}>
