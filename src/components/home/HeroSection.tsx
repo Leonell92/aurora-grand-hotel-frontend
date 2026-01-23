@@ -17,7 +17,7 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-20">
-        <div className="max-w-4xl mx-auto text-center mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <p className="text-gold-light font-medium tracking-[0.3em] uppercase text-sm mb-4 animate-fade-up">
             Welcome to
           </p>

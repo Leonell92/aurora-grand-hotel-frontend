@@ -23,7 +23,7 @@ export function BookingWidget() {
   };
 
   return (
-    <div className="bg-background/95 backdrop-blur-md rounded-xl p-6 shadow-lg border border-border">
+    <div className="bg-background/95 backdrop-blur-md rounded-xl p-6 elevation-2">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Check-in Date */}
         <div className="space-y-2">
