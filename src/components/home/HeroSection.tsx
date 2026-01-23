@@ -22,7 +22,7 @@ export function HeroSection() {
             Welcome to
           </p>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium text-primary-foreground mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            Aurora Grand
+            Aurora Grand Hotel & Resort
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 font-light mb-8 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             Where Luxury Meets Tranquility
