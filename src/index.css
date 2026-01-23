@@ -52,14 +52,14 @@
 
     /* Gradients */
     --gradient-gold: linear-gradient(135deg, hsl(38 65% 50%), hsl(38 55% 60%));
-    --gradient-hero: linear-gradient(180deg, hsla(220, 20%, 15%, 0.85) 0%, hsla(220, 20%, 15%, 0.5) 100%);
+    --gradient-hero: linear-gradient(180deg, hsla(220, 20%, 15%, 0.92) 0%, hsla(220, 20%, 15%, 0.65) 100%);
     --gradient-card: linear-gradient(180deg, hsl(40 30% 97%) 0%, hsl(40 25% 94%) 100%);
 
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsla(220, 20%, 15%, 0.08);
     --shadow-medium: 0 8px 30px -8px hsla(220, 20%, 15%, 0.12);
     --shadow-gold: 0 4px 20px -4px hsla(38, 65%, 50%, 0.3);
-    
+
     /* Elevation shadows for hierarchy */
     --shadow-elevation-1: 0 2px 8px -2px hsla(220, 20%, 15%, 0.12), 0 4px 16px -4px hsla(220, 20%, 15%, 0.08);
     --shadow-elevation-2: 0 4px 16px -4px hsla(220, 20%, 15%, 0.16), 0 8px 32px -8px hsla(220, 20%, 15%, 0.12);
@@ -134,7 +134,12 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }
@@ -225,6 +230,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -235,6 +241,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -245,6 +252,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -256,19 +264,25 @@
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
+
 /* ... your existing styles in index.css ... */
 
 /* Alert for redirect messages (e.g., "Please sign in to make a booking") */
 .alert-warning {
   padding: 1rem;
-  background-color: #fef9e7; /* softer gold/yellow */
-  border: 1px solid #d4af37; /* gold border */
-  border-radius: 8px; /* more modern */
-  color: #333; /* dark text */
+  background-color: #fef9e7;
+  /* softer gold/yellow */
+  border: 1px solid #d4af37;
+  /* gold border */
+  border-radius: 8px;
+  /* more modern */
+  color: #333;
+  /* dark text */
   font-weight: 500;
 }
