@@ -73,7 +73,7 @@ export function AmenitiesSlideshow() {
     return (
         <div className="w-full max-w-7xl mx-auto mb-12 px-4 animate-fade-up" style={{ animationDelay: "0.35s" }}>
             {/* Tier 1: Frosted glass container for clear layer separation */}
-            <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 elevation-3">
+            <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-6 md:p-8 elevation-3">
                 {/* Subtle gradient overlay on container for additional depth */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl pointer-events-none" />
 
@@ -125,8 +125,8 @@ export function AmenitiesSlideshow() {
                         ))}
                     </CarouselContent>
                     {/* Enhanced navigation buttons with better contrast */}
-                    <CarouselPrevious className="left-0 md:-left-4 bg-white/20 backdrop-blur-md border-white/30 text-white hover:bg-white/30 hover:scale-110 transition-all duration-300 elevation-2" />
-                    <CarouselNext className="right-0 md:-right-4 bg-white/20 backdrop-blur-md border-white/30 text-white hover:bg-white/30 hover:scale-110 transition-all duration-300 elevation-2" />
+                    <CarouselPrevious className="left-0 md:-left-4 bg-white/40 backdrop-blur-md border-white/50 text-white hover:bg-white/50 hover:scale-110 transition-all duration-300 elevation-2" />
+                    <CarouselNext className="right-0 md:-right-4 bg-white/40 backdrop-blur-md border-white/50 text-white hover:bg-white/50 hover:scale-110 transition-all duration-300 elevation-2" />
                 </Carousel>
             </div>
         </div>
