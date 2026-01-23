@@ -70,9 +70,8 @@ export function AmenitiesSlideshow() {
         api.plugins().autoplay = autoplay;
     }, [api]);
 
-    console.log("DEBUG: AmenitiesSlideshow V2 rendering");
     return (
-        <div className="w-full max-w-7xl mx-auto mb-12 px-4 animate-fade-up border-4 border-red-600" style={{ animationDelay: "0.35s" }}>
+        <div className="w-full max-w-7xl mx-auto mb-12 px-4 animate-fade-up" style={{ animationDelay: "0.35s" }}>
             {/* Tier 1: Frosted glass container for clear layer separation */}
             <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-6 md:p-8 elevation-3">
                 {/* Subtle gradient overlay on container for additional depth */}
