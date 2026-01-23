@@ -23,6 +23,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', backgroundColor: 'red', color: 'white', textAlign: 'center', zIndex: 9999, padding: '10px', fontSize: '20px', fontWeight: 'bold' }}>
+        DEPLOYMENT TEST - IF YOU SEE THIS, THE NEW CODE IS LIVE
+      </div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
