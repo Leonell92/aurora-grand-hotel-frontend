@@ -122,7 +122,7 @@ export default {
       },
       backgroundImage: {
         "gradient-gold": "linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)))",
-        "gradient-hero": "linear-gradient(180deg, hsla(220, 20%, 15%, 0.7) 0%, hsla(220, 20%, 15%, 0.3) 100%)",
+        "gradient-hero": "var(--gradient-hero)",
       },
     },
   },
