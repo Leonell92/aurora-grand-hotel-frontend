@@ -8,7 +8,14 @@ import { Users, Check, Calendar, ArrowLeft, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { getRoomById, checkAvailability, createBooking, getErrorMessage } from "@/api/api";
+import { getRoom, checkAvailability, createBooking } from "@/api/api";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
@@ -20,7 +27,7 @@ const RoomDetailsPage = () => {
   const [checkIn, setCheckIn] = useState<Date | undefined>();
   const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [user, setUser] = useState<any>(null);
-  
+
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
@@ -38,7 +45,7 @@ const RoomDetailsPage = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const data = await getRoomById(roomId!);
+        const data = await getRoom(Number(roomId));
         setRoom(data);
       } catch (error) {
         console.error("Error fetching room:", error);
@@ -53,12 +60,12 @@ const RoomDetailsPage = () => {
   const isFormValid = () => {
     if (!checkIn || !checkOut) return false;
     if (!guestName.trim() || !guestEmail.trim()) return false;
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(guestEmail)) return false;
-    
+
     if (numberOfGuests < 1 || numberOfGuests > room?.max_guests) return false;
-    
+
     return true;
   };
 
@@ -96,14 +103,14 @@ const RoomDetailsPage = () => {
     const checkOutStr = checkOut.toISOString().split("T")[0];
 
     try {
-      const availabilityData = await checkAvailability(
+      const isAvailable = await checkAvailability(
         room.id,
         checkInStr,
         checkOutStr
       );
 
-      if (!availabilityData.available) {
-        alert(availabilityData.message || "Room is not available for these dates");
+      if (!isAvailable) {
+        alert("Room is not available for these dates");
         return;
       }
 
@@ -114,6 +121,8 @@ const RoomDetailsPage = () => {
         guest_name: guestName.trim(),
         guest_email: guestEmail.trim(),
         guests: numberOfGuests,
+        user: user.id || 1, // Fallback user ID
+        confirmed: false
       };
 
       await createBooking(bookingData);
@@ -122,12 +131,12 @@ const RoomDetailsPage = () => {
       navigate("/bookings");
     } catch (error: any) {
       console.error("Booking failed:", error);
-      
+
       if (error.response?.status === 401) {
         alert("Please log in to make a booking.");
         navigate("/login");
       } else {
-        alert(getErrorMessage(error));
+        alert(error.message || "An error occurred during booking.");
       }
     } finally {
       setBookingLoading(false);
@@ -284,8 +293,8 @@ const RoomDetailsPage = () => {
                   <Label className="text-sm font-medium mb-2 block">Check-in</Label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full justify-start text-left"
                         disabled={bookingLoading}
                       >
@@ -309,8 +318,8 @@ const RoomDetailsPage = () => {
                   <Label className="text-sm font-medium mb-2 block">Check-out</Label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full justify-start text-left"
                         disabled={bookingLoading}
                       >

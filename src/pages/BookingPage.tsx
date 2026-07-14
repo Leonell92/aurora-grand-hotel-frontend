@@ -4,6 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users, Mail, CheckCircle, Clock } from "lucide-react";
 import { format } from "date-fns";
+import { getBookings, getRooms } from "@/api/api";
+import { formatPrice } from "@/lib/utils";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -14,12 +16,10 @@ const BookingsPage = () => {
     const fetchBookingsAndRooms = async () => {
       try {
         // Fetch bookings
-        const bookingsResponse = await fetch("http://127.0.0.1:8000/api/bookings/");
-        const bookingsData = await bookingsResponse.json();
+        const bookingsData = await getBookings();
 
         // Fetch all rooms
-        const roomsResponse = await fetch("http://127.0.0.1:8000/api/rooms/");
-        const roomsData = await roomsResponse.json();
+        const roomsData = await getRooms();
 
         // Create a map of room ID to room data
         const roomsMap = {};
@@ -84,7 +84,7 @@ const BookingsPage = () => {
               <div className="space-y-6">
                 {bookings.map((booking) => {
                   const room = rooms[booking.room];
-                  
+
                   return (
                     <div
                       key={booking.id}
@@ -103,11 +103,10 @@ const BookingsPage = () => {
                           />
                           <div className="absolute top-4 right-4">
                             <span
-                              className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                                booking.confirmed
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-yellow-100 text-yellow-800"
-                              }`}
+                              className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${booking.confirmed
+                                ? "bg-green-100 text-green-800"
+                                : "bg-yellow-100 text-yellow-800"
+                                }`}
                             >
                               {booking.confirmed ? "Confirmed" : "Pending"}
                             </span>
@@ -127,7 +126,7 @@ const BookingsPage = () => {
                             </div>
                             <div className="text-right">
                               <p className="text-2xl font-serif font-semibold text-primary">
-                                ₦{room?.price_per_night || "0"}
+                                ₦{formatPrice(room?.price_per_night || "0")}
                               </p>
                               <p className="text-xs text-muted-foreground">per night</p>
                             </div>

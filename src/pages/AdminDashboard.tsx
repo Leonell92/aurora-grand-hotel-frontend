@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   const stats = [
     { label: "Total Bookings", value: dashboardStats.totalBookings, change: "+12%" },
     { label: "Occupancy Rate", value: `${dashboardStats.occupancyRate}%`, change: "+5%" },
-    { label: "Monthly Revenue", value: `$${dashboardStats.monthlyRevenue.toLocaleString()}`, change: "+18%" },
+    { label: "Monthly Revenue", value: `₦${dashboardStats.monthlyRevenue.toLocaleString()}`, change: "+18%" },
     { label: "Avg. Rating", value: dashboardStats.averageRating, change: "+0.2" },
   ];
 
@@ -97,7 +97,7 @@ const AdminDashboard = () => {
                     <td className="px-6 py-4 text-sm">{booking.roomName}</td>
                     <td className="px-6 py-4 text-sm">{booking.checkIn}</td>
                     <td className="px-6 py-4"><span className={cn("px-2 py-1 text-xs rounded-full", booking.status === "confirmed" ? "bg-green-100 text-green-700" : booking.status === "pending" ? "bg-yellow-100 text-yellow-700" : booking.status === "cancelled" ? "bg-red-100 text-red-700" : "bg-gray-100 text-gray-700")}>{booking.status}</span></td>
-                    <td className="px-6 py-4 text-sm font-medium">${booking.totalAmount}</td>
+                    <td className="px-6 py-4 text-sm font-medium">₦{booking.totalAmount}</td>
                   </tr>
                 ))}
               </tbody>
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
               {rooms.slice(0, 3).map((room) => (
                 <div key={room.id} className="flex items-center justify-between">
                   <span className="text-sm">{room.name}</span>
-                  <span className="text-sm font-medium">${room.pricePerNight}/night</span>
+                  <span className="text-sm font-medium">₦{room.pricePerNight}/night</span>
                 </div>
               ))}
             </div>

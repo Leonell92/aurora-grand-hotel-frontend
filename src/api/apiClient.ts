@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Hardcoded for production (temporary fix)
-const API_BASE_URL = 'https://aurora-grand-hotel-backend.onrender.com/api';
+// Use environment variable with local fallback
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api';
 
 // Create our custom axios instance
 const apiClient = axios.create({

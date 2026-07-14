@@ -10,6 +10,14 @@ export interface Room {
   max_guests: number;
   image_url: string;
   amenities: string[];
+  features?: RoomFeature[];
+}
+
+export interface RoomFeature {
+  id: number;
+  title: string;
+  image_url: string;
+  description: string;
 }
 
 export interface Booking {
@@ -63,9 +71,9 @@ export const createBooking = async (bookingData: Omit<Booking, 'id' | 'created_a
       user: bookingData.user || 1,
       confirmed: false
     };
-    
+
     console.log('Sending booking data:', dataWithUser);
-    
+
     const response = await fetch(`${API_BASE_URL}/bookings/`, {
       method: 'POST',
       headers: {
@@ -73,13 +81,13 @@ export const createBooking = async (bookingData: Omit<Booking, 'id' | 'created_a
       },
       body: JSON.stringify(dataWithUser),
     });
-    
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Booking error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
     }
-    
+
     const data = await response.json();
     console.log('Booking created successfully:', data);
     return data;
@@ -110,11 +118,11 @@ export const checkAvailability = async (roomId: number, checkIn: string, checkOu
     const response = await fetch(
       `${API_BASE_URL}/bookings/check_availability/?room_id=${roomId}&check_in=${checkIn}&check_out=${checkOut}`
     );
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data.available;
   } catch (error) {
