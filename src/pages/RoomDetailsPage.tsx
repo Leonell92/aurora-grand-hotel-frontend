@@ -8,7 +8,7 @@ import { Users, Check, Calendar, ArrowLeft, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { getRoom, checkAvailability, createBooking } from "@/api/api";
+import { getRoomById, checkAvailability, createBooking } from "@/api/api";
 import {
   Carousel,
   CarouselContent,
@@ -45,7 +45,7 @@ const RoomDetailsPage = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const data = await getRoom(Number(roomId));
+        const data = await getRoomById(Number(roomId));
         setRoom(data);
       } catch (error) {
         console.error("Error fetching room:", error);
